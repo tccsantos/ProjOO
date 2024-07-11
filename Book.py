@@ -55,7 +55,7 @@ class LivroUnico(Book):
         super().__init__(nome)
         self.__autor = autor
         self.__quantidade = quantidade
-        self.__avaliabe = [True] * quantidade
+        self.__avaliabe = [True] * quantidade # Para que esse existe?
         self.__users = [None] * quantidade
 
     def isComposite(self):
@@ -69,3 +69,6 @@ class LivroUnico(Book):
     
     def getAvaliabe(self) -> list[bool]:
         return self.__avaliabe
+    
+    def getQuantidade(self) -> list[bool]:
+        return self.__quantidade

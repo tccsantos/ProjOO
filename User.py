@@ -11,6 +11,10 @@ class User(ABC):
         self.__nascimento: str = nascimento #"08062004"
         self.__reserva: set[Book] = set()
 
+    @abstractmethod
+    def isType(self) -> str:
+        pass
+
     def solicitarNome(self) -> str:
         return self.__nome
     
@@ -19,6 +23,9 @@ class User(ABC):
     
     def solicitarIdade(self) -> int:
         return int(time.gmtime().tm_year) - int(self.__nascimento[-4:])
+
+    def solicitarReserva(self) -> set[Book]:
+        return self.__reserva
     
     def esperarLivro(self, book: Book) -> None:
         self.__reserva.add(book)
@@ -35,8 +42,14 @@ class User(ABC):
 class StudentUserType(User):
     def __init__(self, nome, cpf, nascimento):
         super().__init__(nome, cpf, nascimento)
+    
+    def isType(self) -> str:
+        return "Student"
 
 
 class TeacherUserType(User):
     def __init__(self, nome, cpf, nascimento):
         super().__init__(nome, cpf, nascimento)
+    
+    def isType(self) -> str:
+        return "Teacher"

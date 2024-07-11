@@ -22,7 +22,7 @@ class LibraryFacade():
         self.__users: set[User] = users
 
     
-    def __select():
+    def __select() -> set[Book]:
         ...
 
 
@@ -31,6 +31,8 @@ class LibraryFacade():
         specificBooks = self.__select(allBooks, nomeLivro)
         if (len(specificBooks)<1): print("Nenhum livro foi encontrado\n")
         else:
+            specificBooks = list(specificBooks)
+            specificBooks.sort(key = lambda book: book.nome)
             for i , book in enumerate(specificBooks, start= 1):
                 print(f'{i}- {book}\n')
 
