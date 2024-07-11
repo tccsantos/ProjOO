@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 from LibraryMediator import Mediator
 from User import User
 
+from typing import Self
+
 
 class Book(ABC):
 
@@ -10,7 +12,10 @@ class Book(ABC):
         self.mediator = None
 
     def __repr__(self) -> str:
-        return  self.__nome + ', ' + self.__autor if self.__autor else self.__nome 
+        return  self.__nome + ', ' + self.__autor if self.__autor else self.__nome #ERRADO!!!!
+
+    def __eq__(self, __value: Self) -> bool:
+        return  self.nome == __value.nome
 
     @abstractmethod
     def isComposite(self):

@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from User import User
 from Book import Book
+from Handler import Handler
 
 class LibraryFacade():
 
@@ -16,10 +17,11 @@ class LibraryFacade():
             return cls.__instance
 
 
-    def __init__(self, users: set[User], books: set[Book]) -> None:
+    def __init__(self, users: set[User], books: set[Book], bookHandler: Handler) -> None:
         self.libraryFacade: LibraryFacade = None
         self.__books: set[Book] = books
         self.__users: set[User] = users
+        self.bookHandler: Handler = bookHandler
 
     
     def __select() -> set[Book]:
@@ -45,6 +47,14 @@ class LibraryFacade():
     def __Reserva(self, book: Book, user: User) -> None:
         user.reservarLivro(book)
         print("Reserva feita\n")
+    
+    def __emprestimo(self, book: Book, user: User) -> None:
+        user.emprestimo(book)
+        print("Emprestimo Feito com sucesso\n")
+    
+    def __devolucao(self, book: Book, user: User) -> None:
+        user.devolucao(book)
+        print("Livro devolvido com sucesso\n")
 
 
     def devolveLivros(self):

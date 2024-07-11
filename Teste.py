@@ -18,5 +18,4 @@ cereja = teste(8, "Cereja")
 caju = teste(5, "Caju")
 
 aba = [banana, pera, uva, cereja, caju]
-aba.sort(key=lambda teste: teste.nome)
-print(aba)
+print("aba") if banana.aba else print('bab')

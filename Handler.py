@@ -38,8 +38,15 @@ class UserEligibilityHandler(Handler):
 
     def eligible(self, book: LivroUnico, user: User):
         #code
-        ...
-        resultado: bool = True
+        total = self.manager.getMultipleLimit(user)
+        i = 0
+        for item in user.solicitarEmprestimo():
+            if item == book:
+                i +=1
+        if i >= total:
+            resultado: bool = False
+        else:
+            resultado: bool = True
 
         if self.sucessor and resultado:
             return self.sucessor.eligible(book, user)
@@ -52,12 +59,14 @@ class LoanLimitHandler(Handler):
 
     def eligible(self, book: LivroUnico, user: User):
         #code
-        ...
-        resultado: bool = True
+        total = self.manager.getLoanLimit(user)
+        if len(user.solicitarEmprestimo()) >= total:
+            resultado: bool = False
+        else:
+            resultado: bool = True
 
         if self.sucessor and resultado:
             return self.sucessor.eligible(book, user)
 
         else:
             return resultado
-
