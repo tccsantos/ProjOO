@@ -1,10 +1,10 @@
 #Maria Clara Couto Lorena  RA 163941
 #Thiago Cortez Cursino dos Santos  RA 163997
 from LibraryFacade import LibraryFacade
-from User import StudentUserType, TeacherUserType
-from Book import Book
+from Adapter import csvReader
+from Handler import BookAvaliabilityHandler, UserEligibilityHandler, LoanLimitHandler
+from Configuration import LibraryManager
 
-from csv import reader
 
 
 
@@ -13,7 +13,7 @@ class main():
 
     def teste():
 
-        interface : LibraryFacade = ...
+        interface: LibraryFacade = main.start()
 
 
         while(True):
@@ -24,13 +24,13 @@ class main():
             match choice: #Incompleto!!!!!
 
                 case 1:
-                    interface.buscaLivros()
+                    interface.searchBook()
 
                 case 2:
-                    interface.emprestaLivros()
+                    interface.borrowBook()
                         
                 case 3:
-                    interface.devolveLivros()
+                    interface.returnBook()
                 
                 case 4:
                     break
@@ -38,8 +38,25 @@ class main():
                 case _:
                     print("Opção inválida\n")
 
-    def start(self):
-        ...
+    def start() -> LibraryFacade:
+        
+        init = csvReader("./Banco/Books.csv", "./Banco/Users.csv")
+        users, books = init.initialize()
+
+        loan = {"Teacher": 30, "Student": 10}
+        Multiply = {"Teacher": 10, "Student": 1}
+
+        manager = LibraryManager(loan, Multiply)
+
+        handler3 = LoanLimitHandler(manager=manager)
+        handler2 = BookAvaliabilityHandler(handler3, manager)
+        handler1 = UserEligibilityHandler(handler2, manager)
+
+
+        fachada = LibraryFacade(users, books, handler1)
+
+        return fachada
+
 
 if __name__ == "__main__":
     main().teste()

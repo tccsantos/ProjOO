@@ -1,2 +1,5 @@
-id;nome; edicao; autores;
-1;Engenharia de Software Moderna; 1; Marco Tulio Valente 
+id;catalog;nome;quantidade;autores;livros
+1;False;"Engenharia de Software Moderna";1;"Marco Tulio Valente";None
+2;False;"Calculo 1";6;"Little Stuart";None
+3;True;"Livros de Calculo";None;None;2,4
+4;False;"Calculo 1";5;"Hamilton";None

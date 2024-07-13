@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from Book import LivroUnico
+from Book import SingleBook
 from User import User
 from Configuration import ConfigurationManager
 
@@ -9,64 +9,64 @@ from typing import Self
 class Handler(ABC):
 
     def __init__(self, suc: Self|None = None, manager: ConfigurationManager = None) -> None:
-        self.sucessor: Handler|None = suc
+        self.successor: Handler|None = suc
         self.manager: ConfigurationManager = manager
 
     @abstractmethod
-    def eligible(self, book: LivroUnico, user: User):
+    def eligible(self, book: SingleBook, user: User):
         pass
 
 
 class BookAvaliabilityHandler(Handler):
     
-    def eligible(self, book: LivroUnico, user: User):
+    def eligible(self, book: SingleBook, user: User):
         #code
-        if book.getQuantidade() > 0:
-            resultado: bool = True
+        if book.getQuantity() > 0:
+            result: bool = True
         else:
-            resultado: bool = False
+            result: bool = False
 
-        if self.sucessor and resultado:
-            return self.sucessor.eligible(book, user)
+        if self.sucsessor and result:
+            return self.suscessor.eligible(book, user)
 
         else:
-            return resultado
+            return result
 
 
 class UserEligibilityHandler(Handler):
         
 
-    def eligible(self, book: LivroUnico, user: User):
+    def eligible(self, book: SingleBook, user: User):
         #code
         total = self.manager.getMultipleLimit(user)
         i = 0
-        for item in user.solicitarEmprestimo():
+        for item in user.getLoan():
             if item == book:
                 i +=1
         if i >= total:
-            resultado: bool = False
+            result: bool = False
         else:
-            resultado: bool = True
+            result: bool = True
 
-        if self.sucessor and resultado:
-            return self.sucessor.eligible(book, user)
+        if self.successor and result:
+            return self.successor.eligible(book, user)
 
         else:
-            return resultado
+            return result
 
 
 class LoanLimitHandler(Handler):
 
-    def eligible(self, book: LivroUnico, user: User):
+    def eligible(self, book: SingleBook, user: User):
         #code
         total = self.manager.getLoanLimit(user)
-        if len(user.solicitarEmprestimo()) >= total:
-            resultado: bool = False
+        if len(user.getLoan()) >= total:
+            result: bool = False
         else:
-            resultado: bool = True
+            result: bool = True
 
-        if self.sucessor and resultado:
-            return self.sucessor.eligible(book, user)
+        if self.successor and result:
+            return self.successor.eligible(book, user)
 
         else:
-            return resultado
+            return result
