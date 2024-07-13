@@ -1,15 +1,11 @@
-from abc import ABC, abstractmethod
+from Abstract import User, Book, Handler
 
-from User import User
-from Book import Book
-from Handler import Handler
-
-class LibraryFacade():
+class LibraryFacade:
 
     __instance = None
     
 
-    def __new__(cls):
+    def __new__(cls, *args, **kwargs):
         if not cls.__instance:
             cls.__instance = super().__new__(cls)
             return cls.__instance
@@ -57,6 +53,7 @@ class LibraryFacade():
         print("Reserva feita\n")
     
     def __loan(self, book: Book, user: User) -> None:
+        book.removeAvaliable()
         user.loan(book)
         print("Emprestimo Feito com sucesso\n")
     
@@ -71,4 +68,3 @@ class LibraryFacade():
             self.__returnal(book,user)
         else:
             print("O livro deve ser devolvido por quem o emprestou! Este não está cadastrado no seu cpf!")
-        

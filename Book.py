@@ -1,46 +1,5 @@
-from abc import ABC, abstractmethod
-#from LibraryMediator import Mediator
-#from User import User
+from Abstract import Book
 
-from typing import Self
-
-
-class Book(ABC):
-
-    def __init__(self, name, _id) -> None:
-        self.__name: str = name
-        self.__id: int = _id
-        self.__mediator = None
-
-    def __repr__(self) -> str:
-        return  self.__name + ', ' + self.getAuthor()
-
-    def __eq__(self, __value: Self) -> bool:
-        return  self.__name == __value.__name
-    
-    def __hash__(self) -> int:
-        return hash(self.__name)
-
-    @abstractmethod
-    def isComposite(self) -> bool:
-        pass
-
-    @abstractmethod
-    def getBooks(self) -> Self|set[Self]:
-        pass
-
-    @abstractmethod
-    def getAuthor(self) -> str:
-        pass
-
-    def getName(self) -> str:
-        return self.__name
-        
-    def setMediator(self, mediator) -> None:
-        self.__mediator = mediator
-    
-    def getId(self)-> int:
-        return self.__id
 
 
 class CompositionBook(Book):
@@ -76,7 +35,6 @@ class SingleBook(Book):
         self.__author = author
         self.__quantity = quantity
         self.__avaliabe = [True] * quantity
-        self.__users = [None] * quantity
 
     def isComposite(self) -> bool:
         return False 
@@ -98,7 +56,6 @@ class SingleBook(Book):
             self.__avaliabe[self.__avaliabe.index(True)] = False
         except:
             print("Erro! Você está tentando pegar um livro, mas todos já estão emprestados")
-
     
     def getQuantity(self) -> list[bool]:
         return self.__quantity

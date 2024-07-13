@@ -1,30 +1,15 @@
-from abc import ABC, abstractmethod
-from Book import SingleBook
-from User import User
-from Configuration import ConfigurationManager
+from Abstract import Handler, User, Book
 
-from typing import Self
-
-
-class Handler(ABC):
-
-    def __init__(self, suc: Self|None = None, manager: ConfigurationManager = None) -> None:
-        self.successor: Handler|None = suc
-        self.manager: ConfigurationManager = manager
-
-    @abstractmethod
-    def eligible(self, book: SingleBook, user: User):
-        pass
 
 
 class BookAvaliabilityHandler(Handler):
     
-    def eligible(self, book: SingleBook, user: User):
-        #code
-        if book.getQuantity() > 0:
-            result: bool = True
-        else:
-            result: bool = False
+    def eligible(self, book: Book, user: User):
+        if book.isComposite() == True: 
+            print("Error!")
+            return KeyError
+        
+        result = True in book.getAvaliabe()
 
         if self.sucsessor and result:
             return self.suscessor.eligible(book, user)
@@ -36,8 +21,7 @@ class BookAvaliabilityHandler(Handler):
 class UserEligibilityHandler(Handler):
         
 
-    def eligible(self, book: SingleBook, user: User):
-        #code
+    def eligible(self, book: Book, user: User):
         total = self.manager.getMultipleLimit(user)
         i = 0
         for item in user.getLoan():
@@ -57,13 +41,10 @@ class UserEligibilityHandler(Handler):
 
 class LoanLimitHandler(Handler):
 
-    def eligible(self, book: SingleBook, user: User):
-        #code
+    def eligible(self, book: Book, user: User):
         total = self.manager.getLoanLimit(user)
-        if len(user.getLoan()) >= total:
-            result: bool = False
-        else:
-            result: bool = True
+
+        result = len(user.getLoan()) < total
 
         if self.successor and result:
             return self.successor.eligible(book, user)

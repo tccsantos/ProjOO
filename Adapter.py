@@ -1,23 +1,9 @@
-from abc import ABC, abstractmethod
-from User import User, TeacherUserType, StudentUserType
-from Book import Book, SingleBook, CompositionBook
-
+from Abstract import ExternalCatalogAdapter, User, Book
+from Book import SingleBook, CompositionBook
+from User import TeacherUserType, StudentUserType
+import pandas as pd
 import csv
 
-
-class ExternalCatalogAdapter(ABC):
-    
-    @abstractmethod
-    def addLoan(self, user: User, book: Book) -> None:
-        pass
-
-    @abstractmethod
-    def returnLoan(self, user: User, book: Book) -> None:
-        pass
-
-    @abstractmethod
-    def initialize(self) -> tuple[set[User], set[Book]]:
-        pass
 
 
 class csvReader(ExternalCatalogAdapter):
@@ -37,19 +23,17 @@ class csvReader(ExternalCatalogAdapter):
             next(aba, None)
             rawBooks = list(aba)
 
-
         users = set()
         books = set()
-
 
         for user in rawUsers:
             reserve = None if user[4] == "None" else set(user[4].split(","))
             loan = None if user[5] == "None" else user[5].split(",")
             
             if user[6] == "Teacher":
-                sup = TeacherUserType(user[1], user[2], user[3], reserve, loan)
+                sup = TeacherUserType(user[1], user[2], user[3], self,reserve, loan)
             elif user[6] == "Student":
-                sup = StudentUserType(user[1], user[2], user[3], reserve, loan)
+                sup = StudentUserType(user[1], user[2], user[3], self, reserve, loan)
             else:
                 raise KeyError
             
@@ -67,7 +51,7 @@ class csvReader(ExternalCatalogAdapter):
             else:
                 raise KeyError
             
-            books.add(sup)
+            #books.add(sup)
             single.add(sup)
         
         for book in catalog:
@@ -78,7 +62,7 @@ class csvReader(ExternalCatalogAdapter):
                     if num == unique.getId():
                         comp.add(unique)
             
-            sup = CompositionBook(book[2], book[0], comp)
+            sup = CompositionBook(book[2], int(book[0]), comp)
             books.add(sup)
         
 
@@ -86,8 +70,20 @@ class csvReader(ExternalCatalogAdapter):
         return users, books
     
     def addLoan(self, user: User, book: Book) -> None:
-        return super().addLoan(user, book)
+        with open("./Banco/Users.csv", "wr", encoding="utf8") as arquivo:
+            aba = csv.reader(arquivo, delimiter=";")
+            
+            for line in aba:
+                if(line.includes(user.getName())):
+                    new_line = []
+                    return None
+        return KeyError
     
     def returnLoan(self, user: User, book: Book) -> None:
-        return super().returnLoan(user, book)
+        return None
 
+    def addReserve(self, user: User, book: Book) -> None:
+        return super().addReserve(user, book)
+    
+    def removeReserve(self, user: User, book: Book) -> None:
+        return super().removeReserve(user, book)

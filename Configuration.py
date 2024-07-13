@@ -1,24 +1,5 @@
-from abc import ABC, abstractmethod
-from User import User
+from Abstract import ConfigurationManager, User
 
-
-class ConfigurationManager(ABC):
-
-    @abstractmethod
-    def getLoanLimit(self, user: User):
-        pass
-
-    @abstractmethod
-    def getMultipleLimit(self, user: User):
-        pass
-
-    @abstractmethod
-    def setLoanLimit(self, userType: str, newLimit: int, newUserType: bool) -> None:
-        pass
-
-    @abstractmethod
-    def setMultipleLimit(self, userType: str, newLimit: int, newUserType: bool) -> None:
-        pass
 
 
 class LibraryManager(ConfigurationManager):

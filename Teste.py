@@ -1,13 +1,13 @@
-from Adapter import csvReader
+# from Adapter import csvReader
 
-class teste:
+# class teste:
 
-    def __init__(self, num, nome) -> None:
-        self.num = num
-        self.nome = nome
+#     def __init__(self, num, nome) -> None:
+#         self.num = num
+#         self.nome = nome
     
-    def __repr__(self) -> str:
-        return self.nome + "-" + str(self.num)
+#     def __repr__(self) -> str:
+#         return self.nome + "-" + str(self.num)
 
 
 # banana = teste(5, "Abacaxi")
@@ -32,5 +32,14 @@ class teste:
 #         composite = book
 
 # print(composite.getBooks())
+import csv
 
 
+
+with open("./Banco/BancoTeste/Users.csv", "r", encoding="utf8") as csvfile:
+            aba = csv.DictReader(csvfile, delimiter=";", fieldnames=["id", "nome","cpf","nascimento","Reservas","Emprestimos","Type"])
+            print(aba)
+            abacaxi = dict(aba)
+            print(abacaxi)
+            for key, item in abacaxi.items():
+                print(key, item, sep= ": ")

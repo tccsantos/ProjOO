@@ -1,14 +1,4 @@
-from abc import ABC, abstractmethod
-#from Book import Book
-from User import User
-
-
-
-class Mediator(ABC):
-    
-    @abstractmethod
-    def notify(self, book) -> None:
-        pass
+from Abstract import Mediator, User
 
 
 class bookAvaliabilyNotifier(Mediator):
@@ -18,7 +8,7 @@ class bookAvaliabilyNotifier(Mediator):
     
     def notify(self, book) -> None:
         for user in self.__users:
-            if book in user.getReservation:
+            if book in user.getReservation():
                 user.update(book)
     
     def addUsers(self, user: User) -> None:
