@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Self
 import time
 
-
+#Na interface Mediator pode-se observar o princípio da Segregação de Interfaces 
 class Mediator(ABC):
     
     @abstractmethod
@@ -19,7 +19,7 @@ class Book(ABC):
         self.__mediator = None
 
     def __repr__(self) -> str:
-        return  self.__name + ', ' + self.getAuthor()
+        return  f"nome: {self.__name}\nAutor: {self.getAuthor()}\nid: {str(self.getId())}"
 
     def __eq__(self, __value: Self) -> bool:
         return  self.getId() == __value.getId()
@@ -44,6 +44,9 @@ class Book(ABC):
         
     def setMediator(self, mediator: Mediator) -> None:
         self.__mediator = mediator
+    
+    def getMediator(self) -> Mediator:
+        return self.__mediator
     
     def getId(self)-> int:
         return self.__id
@@ -76,15 +79,20 @@ class User(ABC):
         self.__name: str = name
         self.__cpf: str = cpf
         self.__ageOfBirth: str = ageOfBirth #"08062004"
-        self.__reservation: set[Book] = set() if reservation == None else reservation
-        self.__loan: list[Book] = list() if loan == None else loan
-        self.connection = connection
+        self.__reservation: set[int] = set() if reservation == None else reservation
+        self.__loan: list[int] = list() if loan == None else loan
+        self.connection: ExternalCatalogAdapter = connection
+        self.__history = list()
     
     def __repr__(self) -> str:
-        return f'{self.__name}, {self.__cpf}, {self.__ageOfBirth}'
+        return f'{self.__name}'
 
     @abstractmethod
     def isType(self) -> str:
+        pass
+    
+    @abstractmethod
+    def presentation(self, books: set[Book]) -> None:
         pass
 
     def getName(self) -> str:
@@ -96,32 +104,37 @@ class User(ABC):
     def getAge(self) -> int:
         return int(time.gmtime().tm_year) - int(self.__ageOfBirth[-4:])
 
-    def getReservation(self) -> set[Book]:
+    def getReservation(self) -> set[int]:
         return self.__reservation
     
     def waitBook(self, book: Book) -> None:
         self.__reservation.add(book)
 
-    def removeBook(self, book: Book) -> None:
-        self.__reservation.discard(book)
+    def removeBook(self, idBook: int) -> None:
+        if idBook in self.__reservation:
+            self.__reservation.remove(idBook)
+            self.connection.removeReserve(self,idBook)
     
     def update(self, book: Book) -> None:
-        if book in self.__reservation:
+        if book.getId() in self.__reservation:
             print(f'O aluno {self.__name} foi notificado da disponibilidade do livro {book.getName()}')
     
-    def getLoan(self) -> list[Book]:
+    def getLoan(self) -> list[int]:
         return self.__loan
     
-    def loan(self, book: Book) -> None:
-        self.__loan.append(book)
-        #self.connection.addLoan(self, book)
+    def loan(self, idBook: int) -> None:
+        self.__loan.append(idBook)
+        self.connection.addLoan(self, idBook)
 
     def returnal(self, book: Book) -> None:
-        self.__loan.remove(book)
-        #self.connection.returnLoan(self, book)
+        self.__loan.remove(book.getId())
+        self.connection.returnLoan(self, book.getId())
+        self.__history.append(book)
     
-    def reserveBook(self, book: Book) -> None:
-        self.__reservation.add(book)
+    def reserveBook(self, idBook: int) -> None:
+        if not idBook in self.__reservation:
+            self.__reservation.add(idBook)
+            self.connection.addReserve(self,idBook)
 
 
 class ConfigurationManager(ABC):
@@ -142,7 +155,7 @@ class ConfigurationManager(ABC):
     def setMultipleLimit(self, userType: str, newLimit: int, newUserType: bool) -> None:
         pass
 
-
+#Na interface Handler pode-se observar o princípio da Segregação de Interfaces 
 class Handler(ABC):
 
     def __init__(self, suc: Self|None = None, manager: ConfigurationManager = None) -> None:

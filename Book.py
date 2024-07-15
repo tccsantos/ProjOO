@@ -21,7 +21,23 @@ class CompositionBook(Book):
         allBooks: set[Book] = set()
         for book in self.books:
             childs = book.getBooks()
-            allBooks.add(*childs) if type(childs) == set else allBooks.add(childs)
+            if isinstance(childs, set):
+                for child in childs: allBooks.add(child)
+            else:
+                allBooks.add(childs)
+
+        return allBooks
+    
+    def getAll(self):
+        allBooks: set[Book] = set()
+        allBooks.add(self)
+        for book in self.books:
+            childs = book.getAll()
+            if isinstance(childs, set):
+                for child in childs: allBooks.add(child)
+            else:
+                allBooks.add(childs)
+
         return allBooks
        
     def getAuthor(self) -> str:
@@ -61,7 +77,7 @@ class SingleBook(Book):
         return self.__quantity
     
     def notifyReturn(self):
-        self.__mediator.notify(self)
+        self.getMediator().notify(self)
     
     def getAuthor(self) -> str:
         return self.__author

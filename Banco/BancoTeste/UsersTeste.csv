@@ -1,0 +1,4 @@
+;Unnamed: 0;id;nome;cpf;nascimento;Reservas;Emprestimos;Type
+0;0;1;Marcos Alves;44444444441;19042004;;2;Student
+1;1;2;Leandro Farias;44444444442;24062002;;2,2,2;Teacher
+2;2;3;Leonardo Farias;44444444443;24062001;;1,2,2,2,2;Teacher

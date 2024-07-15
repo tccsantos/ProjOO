@@ -1,3 +1,5 @@
+#Nessas classes, pode-se observar o princípio da Responsabilidade Única, 
+#já que a classe Handler tem uma única responsabilidade(método),de averiguar se algo está elegivel(livro/user/empréstimo).
 from Abstract import Handler, User, Book
 
 
@@ -11,8 +13,8 @@ class BookAvaliabilityHandler(Handler):
         
         result = True in book.getAvaliabe()
 
-        if self.sucsessor and result:
-            return self.suscessor.eligible(book, user)
+        if self.successor and result:
+            return self.successor.eligible(book, user)
 
         else:
             return result
@@ -25,7 +27,7 @@ class UserEligibilityHandler(Handler):
         total = self.manager.getMultipleLimit(user)
         i = 0
         for item in user.getLoan():
-            if item == book:
+            if item == book.getId():
                 i +=1
         if i >= total:
             result: bool = False

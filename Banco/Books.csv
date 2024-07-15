@@ -1,5 +1,8 @@
-id;catalog;nome;quantidade;autores;livros
-1;False;"Engenharia de Software Moderna";1;"Marco Tulio Valente";None
+id;catalog;nome;quantidade;autores;livros;
+1;False;"Engenharia de Software Moderna";4;"Marco Tulio Valente";None
 2;False;"Calculo 1";6;"Little Stuart";None
 3;True;"Livros de Calculo";None;None;2,4
 4;False;"Calculo 1";5;"Hamilton";None
+5;True;"Livros de programação";None;None;1,6,7
+6;False;"Algoritimos e estruturas de dados";8;"Valério Silva";None
+7;False;"Algoritimos e seus fundamentos";1;Sanderson;None
