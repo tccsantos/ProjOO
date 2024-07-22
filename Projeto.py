@@ -40,7 +40,7 @@ class main:
 
                 print("Digite 1 para buscar um livro.\nDigite 2 para pegar um livro emprestado.")
                 print("Digite 3 para devolver um livro.\nDigite 4 para consultar a informação de um livro.")
-                print("Digite 5 para consultar a o seu perfil de usuário .\nDigite 0 para sair do programa.\n\n")
+                print("Digite 5 para consultar o seu perfil de usuário.\nDigite 0 para sair do programa.\n\n")
 
                 choice = int(input("O que deseja fazer?: "))
                 print()
@@ -48,9 +48,7 @@ class main:
                 match choice:
 
                     case 1:
-                        name = input("Digite o nome do livro que deseja buscar: ")
-                        print()
-                        interface.searchBook(name)
+                        interface.searchBook()
 
                     case 2:
                         _id = int(input("Digite o id do livro que deseja emprestar: "))
@@ -65,7 +63,7 @@ class main:
                     case 4:
                         _id = int(input("Digite o id do livro que deseja consultar: "))
                         print()
-                        interface.borrowBook(_id=_id, user=user) # Errado
+                        interface.getInformationBook(_id=_id)
                             
                     case 5:
                         interface.presentation(user=user)

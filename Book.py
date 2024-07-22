@@ -28,17 +28,17 @@ class CompositionBook(Book):
 
         return allBooks
     
-    def getAll(self):
-        allBooks: set[Book] = set()
-        allBooks.add(self)
+    def getCompositions(self):
+        allCompositions: set[Book] = set()
+        allCompositions.add(self)
         for book in self.books:
-            childs = book.getAll()
+            childs = book.getCompositions()
             if isinstance(childs, set):
-                for child in childs: allBooks.add(child)
+                for child in childs: allCompositions.add(child)
             else:
-                allBooks.add(childs)
+                allCompositions.add(childs)
 
-        return allBooks
+        return allCompositions
        
     def getAuthor(self) -> str:
         return ''
@@ -57,6 +57,9 @@ class SingleBook(Book):
 
     def getBooks(self):
         return self
+    
+    def getCompositions(self):
+        return set()
     
     def getAvaliabe(self) -> list[bool]:
         return self.__avaliabe

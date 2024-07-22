@@ -36,6 +36,10 @@ class Book(ABC):
         pass
 
     @abstractmethod
+    def getCompositions(self) -> set[Self]:
+        pass
+
+    @abstractmethod
     def getAuthor(self) -> str:
         pass
 
@@ -82,7 +86,7 @@ class User(ABC):
         self.__reservation: set[int] = set() if reservation == None else reservation
         self.__loan: list[int] = list() if loan == None else loan
         self.connection: ExternalCatalogAdapter = connection
-        self.__history = list()
+        self.__history: list[Book] = list()
     
     def __repr__(self) -> str:
         return f'{self.__name}'
@@ -135,6 +139,9 @@ class User(ABC):
         if not idBook in self.__reservation:
             self.__reservation.add(idBook)
             self.connection.addReserve(self,idBook)
+
+    def getHistory(self) -> list[int]:
+        return self.__history
 
 
 class ConfigurationManager(ABC):
