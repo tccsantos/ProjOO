@@ -190,7 +190,7 @@ class main:
         print()
 
 
-        print("Pesquisaremos sobre o Livro 'Algoritimos e seus fundamentos': \n.")
+        print("Pesquisaremos sobre o Livro 'Algoritimos e seus fundamentos': \n")
         interface.getInformationBook(7)
 
         print("Vale lembrar que tivemos que usar o id do livro para tal, isso será necessário para todos os métodos a seguir.")
@@ -225,7 +225,7 @@ class main:
         print()
 
 
-        print("Pesquisaremos sobre o Livro 'Algoritimos e seus fundamentos' novamente, para ver a quantidade disponível: \n.")
+        print("Pesquisaremos sobre o Livro 'Algoritimos e seus fundamentos' novamente, para ver a quantidade disponível: \n")
         interface.getInformationBook(7)
 
 
