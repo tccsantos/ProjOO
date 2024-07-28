@@ -117,33 +117,26 @@ class LibraryFacade:
                 for j, book in enumerate(books, start=1):
                     print(f'\t{j}- {book.getName()}\n\tAutor: {book.getAuthor()}\n\tid: {book.getId()}\n')
       
-    def searchBook(self):
-        print("Métodos de pesquisa:\n1. Por título\n2. Por autor\n3. Por categoria")
-        try:
-            method: int = int(input("Digite a opção de pesquisa: "))
-        except:
-            print("Opção inválida, você irá retornar para o menu.\n")
-            return
+    def searchBook(self, method: int, busca: str):
         match(method):
             case(1):
-                name: str = input("Digite o título que gostaria de pesquisar: ")
-                self.__searchBookPerName(name)
+                self.__searchBookPerName(busca)
             case(2):
-                author: str = input("Digite o autor que gostaria de pesquisar: ")
-                self.__searchBookPerAuthor(author)
+                self.__searchBookPerAuthor(busca)
             case(3):
-                categorie: str = input("Digite a categória que gostaria de pesquisar: ")
-                self.__searchBookPerCategory(categorie)
+                self.__searchBookPerCategory(busca)
             case _:
-                print("Opção inválida, você irá retornar para o menu.\n")
+                return
 
-    def borrowBook(self, _id: int, user: User):
+    def borrowBook(self, _id: int, user: User, choice: int|None = None):
         book = self.__getBook(_id)
         if book is None: return 
         if self.bookHandler.eligible(book, user):
             self.__loan(book, user)
         else:
-            wantReservation = int(input("Não foi possível realizar o emprestimo, gostaria de reservá-lo? Digite 1 para sim ou 0 para não: ")) #Caso ele não possa emprestar, dar a opção de reservar o livro (dica: função __reserva)
+            print("Não foi possível realizar o emprestimo, gostaria de reservá-lo? Digite 1 para sim ou 0 para não: ", end= '')
+            wantReservation = int(input()) if choice == None else choice
+            if choice != None: print(choice)
             match wantReservation:
                 case 0:
                     print("Você irá retornar para o menu.\n")

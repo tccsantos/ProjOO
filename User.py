@@ -11,13 +11,18 @@ class StudentUserType(User):
     
     def presentation(self, books: set[Book]) -> None:
         print(f'Aluno: {self.getName()}\ncpf: {self.getCpf()}\nIdade: {self.getAge()}\n')
-        print("Livros emprestados atualmente:")
+        print("Livros emprestados atualmente: ", end= '')
+        if len(books) < 1: print("Nenhum livro\n")
+        else: print()
         for book in books:
             print(book)
             print()
         
-        print("\nLivros que já foram emprestados e devolvidos: \n")
-        for book in self.getHistory():
+        print("\nLivros que já foram emprestados e devolvidos: ")
+        history = self.getHistory()
+        if len(history) < 1: print("Nenhum livro\n")
+        else: print()
+        for book in history:
             print(book)
             print()
 
@@ -32,13 +37,18 @@ class TeacherUserType(User):
     
     def presentation(self, books: set[Book]) -> None:
         print(f'Professor: {self.getName()}\ncpf: {self.getCpf()}\nIdade: {self.getAge()}\n')
-        print("Livros emprestados atualmente:\n")
+        print("Livros emprestados atualmente: ", end='')
+        if len(books) < 1: print("Nenhum livro\n")
+        else: print()
         for book in books:
             print(book)
             print()
         
-        print("\nLivros que já foram emprestados e devolvidos: \n")
-        for book in self.getHistory():
+        print("\nLivros que já foram emprestados e devolvidos: ")
+        history = self.getHistory()
+        if len(history) < 1: print("Nenhum livro\n")
+        else: print()
+        for book in history:
             print(book)
             print()
     

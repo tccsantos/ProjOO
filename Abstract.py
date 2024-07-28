@@ -90,7 +90,8 @@ class User(ABC):
         self.__history: list[Book] = list()
     
     def __repr__(self) -> str:
-        return f'{self.__name}'
+        if self.isType() == "Teacher": return f'Professor {self.__name}'
+        else: return f'Aluno {self.__name}'
 
     @abstractmethod
     def isType(self) -> str:
