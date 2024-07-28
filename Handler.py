@@ -1,7 +1,7 @@
-#Nessas classes, pode-se observar o princípio da Responsabilidade Única, 
-#já que a classe Handler tem uma única responsabilidade(método),de averiguar se algo está elegivel(livro/user/empréstimo).
 from Abstract import Handler, User, Book
 
+#Nessas classes, pode-se observar o princípio da Responsabilidade Única, 
+#já que a classe Handler tem uma única responsabilidade(método),de averiguar se algo está elegivel(livro/user/empréstimo).
 
 
 class BookAvaliabilityHandler(Handler):

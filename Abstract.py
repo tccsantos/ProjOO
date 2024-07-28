@@ -11,6 +11,7 @@ class Mediator(ABC):
         pass
 
 
+#A classe Book foi feita baseando-se no Design pattern Composite
 class Book(ABC):
 
     def __init__(self, name, _id) -> None:
@@ -82,10 +83,10 @@ class User(ABC):
     def __init__(self,name: str, cpf: str, ageOfBirth: str, connection, reservation: set[Book]|None = None, loan: list[Book]|None = None):
         self.__name: str = name
         self.__cpf: str = cpf
-        self.__ageOfBirth: str = ageOfBirth #"08062004"
+        self.__ageOfBirth: str = ageOfBirth 
         self.__reservation: set[int] = set() if reservation == None else reservation
         self.__loan: list[int] = list() if loan == None else loan
-        self.connection: ExternalCatalogAdapter = connection
+        self.connection: ExternalCatalogAdapter = connection #Aqui nós temos um exemplo de Inversão de Dependências
         self.__history: list[Book] = list()
     
     def __repr__(self) -> str:
@@ -144,6 +145,7 @@ class User(ABC):
         return self.__history
 
 
+#A classe ConfigurationManager segue o princípio da responsabilidade única
 class ConfigurationManager(ABC):
 
     @abstractmethod
@@ -162,6 +164,7 @@ class ConfigurationManager(ABC):
     def setMultipleLimit(self, userType: str, newLimit: int, newUserType: bool) -> None:
         pass
 
+
 #Na interface Handler pode-se observar o princípio da Segregação de Interfaces 
 class Handler(ABC):
 
@@ -174,6 +177,7 @@ class Handler(ABC):
         pass
 
 
+#Baseando-se no Design Pattern Adapter, essa classe seria o Alvo, aqui nós implementamos o Object Adapter
 class ExternalCatalogAdapter(ABC):
     
     @abstractmethod

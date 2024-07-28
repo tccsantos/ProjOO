@@ -1,7 +1,7 @@
 from Abstract import Book
 
 
-
+#Baseando-se no Design Pattern Composite, esta é a classe composta
 class CompositionBook(Book):
     
     def __init__(self, name: str, _id: int, books: set[Book]) -> None:
@@ -44,6 +44,7 @@ class CompositionBook(Book):
         return ''
 
 
+#Baseando-se no Design Pattern Composite, esta é a classe folha
 class SingleBook(Book):
     
     def __init__(self, name: str, _id: int, author: set[str], quantity: int) -> None:

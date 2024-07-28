@@ -1,7 +1,7 @@
 from Abstract import ConfigurationManager, User
 
 
-
+#Conforme o princípio da responsabilidade única, a única responsabilidade desta classe é estabelecer os valores padrões para o sistema
 class LibraryManager(ConfigurationManager):
 
     def __init__(self, loanlimit: dict[str, int], MultipleLimit: dict[str, int]) -> None:

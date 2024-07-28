@@ -2,6 +2,8 @@ from Abstract import User, Book, Handler
 from unidecode import unidecode
 
 
+#Aqui utilizamos o Pattern Design Façade, uma maneira simles do usuário interagir com todas as funcionalidades do sistema
+#Aqui também é utilizado o Singleton, uma vez que essa classe só pode haver uma única instância desta classe
 class LibraryFacade:
 
     __instance = None

@@ -5,7 +5,7 @@
 *                                                                                  ******************                                                                                                    *
 *                 Este projeto compõe o sistema de avaliação da Unidade Curricular Projeto Orientado a Objetos do 1º semestre de 2024, ofertada pela UNIFESP ICT pelo docente Fábio Fagundes.            *
 *                                          Ele simula o funcionamento básico de um sistema de empréstimos e devoluções de uma biblioteca.                                                                *               
-*                ******************************************************************************************************************************************************************************          *
+*                *****************************************************************************************************************************************************************************           *
 *                                                                                                                                                                                                        *
 *                                              Desenvolvido por: Maria Clara Couto Lorena  RA 163941 e Thiago Cortez Cursino dos Santos  RA 163997                                                       *
 *                                                                                                                                                                                                        *

@@ -5,7 +5,7 @@ import pandas as pd
 import csv
 
 
-
+#Baseando-se no Design Pattern Adapter, essa classe seria o Adapter, aqui nós implementamos o Object Adapter
 class csvReader(ExternalCatalogAdapter):
     
     def __init__(self, bookPath: str, userPath: str) -> None:

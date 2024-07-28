@@ -1,6 +1,7 @@
 from Abstract import Mediator, User, Book
 
 
+#O notificador de livros disponíveis foi feito tendo como base o Design Pattern Mediator
 class bookAvaliabilityNotifier(Mediator):
 
     def __init__(self, users: set[User]|None = None) -> None:
